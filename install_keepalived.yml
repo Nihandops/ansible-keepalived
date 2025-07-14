@@ -1,0 +1,21 @@
+---
+- name: Install Keepalived on all servers
+  hosts: servers
+  become: true
+  tasks:
+    - name: Update yum package cache
+      yum:
+        name: '*'
+        state: latest
+
+    - name: Install Keepalived package
+      yum:
+        name: keepalived
+        state: present
+
+    - name: Ensure Keepalived service is enabled and started
+      service:
+        name: keepalived
+        state: started
+        enabled: yes
+
